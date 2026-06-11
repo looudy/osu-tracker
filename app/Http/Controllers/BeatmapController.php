@@ -8,7 +8,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Beatmap;
-use App\Models\Collection;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 
@@ -16,7 +15,7 @@ class BeatmapController extends Controller
 {
     /**
      * Display paginated list of all beatmaps with optional search and filter.
-     * GET /beatmaps?search=...&tag_id=...&collection_id=...
+     * GET /beatmaps?search=...&tag_id=...
      *
      * @param Request $request
      * @return \Illuminate\View\View
@@ -40,23 +39,13 @@ class BeatmapController extends Controller
             $query->whereHas('tags', fn($q) => $q->where('tags.id', $request->tag_id));
         }
 
-        // Filter by collection — only the authenticated user's own collections
-        if ($request->filled('collection_id') && auth()->check()) {
-            $query->whereHas('collections', fn($q) => $q->where('collections.id', $request->collection_id));
-        }
-
         // withQueryString keeps search params in pagination links so they persist across pages
         $beatmaps = $query->orderBy('title')->paginate(20)->withQueryString();
 
         // All tags for the tag dropdown filter
         $tags = Tag::orderBy('name')->get();
 
-        // User's own collections for the collection dropdown (empty for guests)
-        $collections = auth()->check()
-            ? Collection::where('user_id', auth()->id())->orderBy('name')->get()
-            : collect();
-
-        return view('beatmaps.index', compact('beatmaps', 'tags', 'collections'));
+        return view('beatmaps.index', compact('beatmaps', 'tags'));
     }
 
     /**
@@ -75,11 +64,6 @@ class BeatmapController extends Controller
             ? $beatmap->scores()->where('user_id', auth()->id())->orderBy('played_at', 'desc')->get()
             : collect();
 
-        // Collections for the "Add to Collection" dropdown on the detail page
-        $userCollections = auth()->check()
-            ? Collection::where('user_id', auth()->id())->get()
-            : collect();
-
-        return view('beatmaps.show', compact('beatmap', 'userScores', 'userCollections'));
+        return view('beatmaps.show', compact('beatmap', 'userScores'));
     }
 }

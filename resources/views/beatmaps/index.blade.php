@@ -24,18 +24,6 @@
                 @endforeach
             </select>
 
-            {{-- Collection filter — only shown to authenticated users --}}
-            @auth
-            <select name="collection_id" class="form-input">
-                <option value="">All Collections</option>
-                @foreach($collections as $col)
-                    <option value="{{ $col->id }}" {{ request('collection_id') == $col->id ? 'selected' : '' }}>
-                        {{ $col->name }}
-                    </option>
-                @endforeach
-            </select>
-            @endauth
-
             <button type="submit" class="btn btn-primary">Search</button>
             {{-- Clear link resets all filters by navigating to bare index --}}
             <a href="{{ route('beatmaps.index') }}" class="btn btn-secondary">Clear</a>

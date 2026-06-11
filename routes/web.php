@@ -3,7 +3,6 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\OsuAuthController;
 use App\Http\Controllers\BeatmapController;
-use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
@@ -65,15 +64,6 @@ Route::middleware('auth')->group(function () {
     Route::put('/comments/{id}', [CommentController::class, 'update'])->name('comments.update');
     Route::delete('/comments/{id}', [CommentController::class, 'destroy'])->name('comments.destroy');
 
-    // Collection CRUD — owner-only (ownership enforced via where user_id in controller)
-    // Route::resource handles index, create, store, edit, update, destroy
-    // 'show' is excluded because it uses a custom URL pattern (/collections/{id}/beatmaps)
-    Route::resource('collections', CollectionController::class)->except(['show']);
-    Route::get('/collections/{id}/beatmaps', [CollectionController::class, 'show'])->name('collections.show');
-
-    // Pivot management — add and remove beatmaps from a collection
-    Route::post('/collections/{collectionId}/beatmaps/{beatmapId}', [CollectionController::class, 'addBeatmap'])->name('collections.addBeatmap');
-    Route::delete('/collections/{collectionId}/beatmaps/{beatmapId}', [CollectionController::class, 'removeBeatmap'])->name('collections.removeBeatmap');
 });
 
 /*

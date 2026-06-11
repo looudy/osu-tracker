@@ -101,27 +101,6 @@
     </div>
     @endauth
 
-    {{-- Add to collection dropdown — only shown when the user has at least one collection --}}
-    @auth
-    @if($userCollections->isNotEmpty())
-    <div class="card">
-        <h2>Add to Collection</h2>
-        {{-- Form action is dynamically updated via JS when user selects a different collection --}}
-        <form action="{{ route('collections.addBeatmap', [$userCollections->first()->id, $beatmap->id]) }}"
-              method="POST" class="inline-form" id="add-to-collection-form">
-            @csrf
-            <select name="collection_id" class="form-input"
-                    onchange="this.form.action='{{ url('/collections') }}/'+this.value+'/beatmaps/{{ $beatmap->id }}'">
-                @foreach($userCollections as $col)
-                    <option value="{{ $col->id }}">{{ $col->name }}</option>
-                @endforeach
-            </select>
-            <button type="submit" class="btn btn-secondary">Add</button>
-        </form>
-    </div>
-    @endif
-    @endauth
-
     {{-- Comments section: list + add form --}}
     <div class="card">
         <h2>Comments</h2>

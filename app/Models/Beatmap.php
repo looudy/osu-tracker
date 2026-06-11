@@ -33,12 +33,6 @@ class Beatmap extends Model
         return $this->hasMany(Score::class);
     }
 
-    /** Collections this beatmap belongs to */
-    public function collections()
-    {
-        return $this->belongsToMany(Collection::class, 'beatmap_collection');
-    }
-
     /** Global tags attached to this beatmap */
     public function tags()
     {

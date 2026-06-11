@@ -57,12 +57,6 @@ class User extends Authenticatable
         return $this->hasMany(Score::class);
     }
 
-    /** User can own multiple beatmap collections */
-    public function collections()
-    {
-        return $this->hasMany(Collection::class);
-    }
-
     /** User can leave comments on beatmaps */
     public function comments()
     {

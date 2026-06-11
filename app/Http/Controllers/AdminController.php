@@ -77,7 +77,7 @@ class AdminController extends Controller
     }
 
     /**
-     * Force delete a beatmap — cascades to scores, comments, collection/tag pivots.
+     * Force delete a beatmap — cascades to scores, comments, and tag pivots.
      * Database foreign key constraints with onDelete cascade handle cleanup automatically.
      *
      * @param  int  $beatmapId  The ID of the beatmap to delete

@@ -20,8 +20,6 @@
 
         @auth
             <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
-            <li><a href="{{ route('collections.index') }}">Collections</a></li>
-
             {{-- Admin link visible only to admin users --}}
             @if(auth()->user()->isAdmin())
                 <li><a href="{{ route('admin.users') }}" class="nav-admin">Admin</a></li>
