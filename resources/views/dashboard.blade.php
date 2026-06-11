@@ -86,7 +86,7 @@
                     </td>
                     <td>{{ $map->difficulty_name }}</td>
                     <td>{{ number_format($map->stars, 2) }}★</td>
-                    <td class="miss-count {{ $map->best_miss_count == 1 ? 'one-miss' : '' }}">
+                    <td class="miss-count">
                         {{ $map->best_miss_count }}
                     </td>
                     <td>{{ number_format($map->best_accuracy, 2) }}%</td>
