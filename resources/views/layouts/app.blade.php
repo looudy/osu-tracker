@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-{{-- Master layout for all osu! Tracker pages.
-     Uses raw CSS (public/css/style.css) — no Tailwind, no Bootstrap, no framework.
-     All pages extend this layout via @extends('layouts.app') and fill @section('content'). --}}
+{{-- Master layout for all osu! Tracker pages. --}}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -37,7 +35,6 @@
             </li>
         @else
             <li><a href="{{ route('login') }}">Login</a></li>
-            <li><a href="{{ route('register') }}">Register</a></li>
         @endauth
     </ul>
 </nav>
