@@ -28,7 +28,6 @@
                     <th>ID</th>
                     <th>Name</th>
                     <th>osu! Username</th>
-                    <th>Email</th>
                     <th>Status</th>
                     <th>Actions</th>
                 </tr>
@@ -46,7 +45,6 @@
                         @endif
                     </td>
                     <td>{{ $user->osu_username ?? '—' }}</td>
-                    <td>{{ $user->email }}</td>
                     <td>
                         {{-- Status badge: red for blocked, green for active --}}
                         @if($user->is_blocked)
