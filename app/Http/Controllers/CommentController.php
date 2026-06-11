@@ -9,6 +9,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Comment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class CommentController extends Controller
 {
@@ -51,7 +52,7 @@ class CommentController extends Controller
         $comment = Comment::findOrFail($id);
 
         // Authorization: CommentPolicy::update() — owner or admin only
-        $this->authorize('update', $comment);
+        Gate::authorize('update', $comment);
 
         return view('comments.edit', compact('comment'));
     }
@@ -69,7 +70,7 @@ class CommentController extends Controller
         $comment = Comment::findOrFail($id);
 
         // Authorization: CommentPolicy::update() — owner or admin only
-        $this->authorize('update', $comment);
+        Gate::authorize('update', $comment);
 
         $validated = $request->validate([
             'content' => ['required', 'string', 'min:1', 'max:1000'],
@@ -94,7 +95,7 @@ class CommentController extends Controller
         $comment = Comment::findOrFail($id);
 
         // Authorization: CommentPolicy::delete() — owner or admin only
-        $this->authorize('delete', $comment);
+        Gate::authorize('delete', $comment);
 
         // Save beatmap_id before deleting so we can redirect back to it
         $beatmapId = $comment->beatmap_id;
