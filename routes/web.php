@@ -40,7 +40,7 @@ Route::get('/beatmaps', [BeatmapController::class, 'index'])->name('beatmaps.ind
 Route::get('/beatmaps/{id}', [BeatmapController::class, 'show'])->name('beatmaps.show');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])
-    ->middleware(['auth', 'verified'])
+    ->middleware(['auth'])
     ->name('dashboard');
 
 Route::middleware('auth')->group(function () {
